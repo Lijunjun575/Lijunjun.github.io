@@ -1,3 +1,4 @@
+http://example.com/2023/12/06/linux/
 http://example.com/2023/12/09/12.5%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%EF%BC%88%E8%A1%A5%E5%85%85%EF%BC%89/
 http://example.com/2023/12/06/12.6(HTML5%E5%9F%BA%E7%A1%80%E4%BB%A5%E5%8F%8A%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%EF%BC%89/
 http://example.com/2023/12/06/python/
