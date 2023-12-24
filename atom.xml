@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-12-23T12:44:41.793Z</updated>
+  <updated>2023-12-24T01:18:38.246Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2023/12/24/Yakit%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apostman%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/"/>
+    <id>http://example.com/2023/12/24/Yakit%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Apostman%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</id>
+    <published>2023-12-24T01:16:37.730Z</published>
+    <updated>2023-12-24T01:18:38.246Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Yakit-Windows安装使用"><a href="#Yakit-Windows安装使用" class="headerlink" title="Yakit-Windows安装使用"></a>Yakit-Windows安装使用</h1><h4 id="下载地址及官网文档"><a href="#下载地址及官网文档" class="headerlink" title="下载地址及官网文档"></a>下载地址及官网文档</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.yaklang.io/products/download_and_install/#download</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20231224085932646.png" alt="image-20231224085932646"></p><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>第一步：双击安装包，自动安装</p><p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20231224090001960.png" alt="image-20231224090001960"></p><h4 id="安装完成后需要安装引擎"><a href="#安装完成后需要安装引擎" class="headerlink" title="安装完成后需要安装引擎"></a>安装完成后需要安装引擎</h4><p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20231224090135697.png" alt="image-20231224090135697"></p><h4 id="本地连接后，点击打开项目于进入主页"><a href="#本地连接后，点击打开项目于进入主页" class="headerlink" title="本地连接后，点击打开项目于进入主页"></a>本地连接后，点击打开项目于进入主页</h4><p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20231224090242010.png" alt="image-20231224090242010"></p><h4 id="点击MITM"><a href="#点击MITM" class="headerlink" title="点击MITM"></a>点击MITM</h4><p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20231224090309905.png" alt="image-20231224090309905"></p><h4 id="点击免赔置启动"><a href="#点击免赔置启动" class="headerlink" title="点击免赔置启动"></a>点击免赔置启动</h4><p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20231224090339274.png" alt="image-20231224090339274"></p><h4 id="继续点击启动免赔置启动"><a href="#继续点击启动免赔置启动" class="headerlink" title="继续点击启动免赔置启动"></a>继续点击启动免赔置启动</h4><p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20231224090404786.png" alt="image-20231224090404786"></p><h4 id="随后会自动打开Chrome浏览器，只需要在什么打开我们需要抓包的网址，则会自动进行抓包。"><a href="#随后会自动打开Chrome浏览器，只需要在什么打开我们需要抓包的网址，则会自动进行抓包。" class="headerlink" title="随后会自动打开Chrome浏览器，只需要在什么打开我们需要抓包的网址，则会自动进行抓包。"></a>随后会自动打开Chrome浏览器，只需要在什么打开我们需要抓包的网址，则会自动进行抓包。</h4><p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20231224090426101.png" alt="image-20231224090426101"></p><h4 id="如登录发送请求，api回复success，进入普通用户界面"><a href="#如登录发送请求，api回复success，进入普通用户界面" class="headerlink" title="如登录发送请求，api回复success，进入普通用户界面"></a>如登录发送请求，api回复success，进入普通用户界面</h4><p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20231224090835370.png" alt="image-20231224090835370"></p><h4 id="登录发送请求，api回复zhuye，进入管理员界面"><a href="#登录发送请求，api回复zhuye，进入管理员界面" class="headerlink" title="登录发送请求，api回复zhuye，进入管理员界面"></a>登录发送请求，api回复zhuye，进入管理员界面</h4><p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20231224090852445.png" alt="image-20231224090852445"></p><h1 id="Postman的简单使用"><a href="#Postman的简单使用" class="headerlink" title="Postman的简单使用"></a>Postman的简单使用</h1><h4 id="什么是postman？"><a href="#什么是postman？" class="headerlink" title="什么是postman？"></a>什么是postman？</h4><p>软件测试用来做接口测试的工具。</p><h4 id="下载postman"><a href="#下载postman" class="headerlink" title="下载postman"></a>下载postman</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.getpostman.com/（官方下载）</span><br></pre></td></tr></table></figure><h4 id="postman界面"><a href="#postman界面" class="headerlink" title="postman界面"></a>postman界面</h4><p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20231224091125920.png" alt="image-20231224091125920"></p><h4 id="接口请求的常用方式（GET-POST）"><a href="#接口请求的常用方式（GET-POST）" class="headerlink" title="接口请求的常用方式（GET&#x2F;POST）"></a>接口请求的常用方式（GET&#x2F;POST）</h4><p>GET与POST的区别<br>① 长度。GET有长度限制，POST没有长度限制。<br>② 安全性。GET通常是将参数显示在URL地址中，可以被看见，不是那么安全；而POST是将参数写入body中，不能被看见，更安全。<br>③ 作用。GET通常作用于从数据库中读取数据；而POST则是将数据提交&#x2F;更新于数据库中。</p><h4 id="无参数的GET方法"><a href="#无参数的GET方法" class="headerlink" title="无参数的GET方法"></a>无参数的GET方法</h4><p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20231224091228945.png" alt="image-20231224091228945"></p><h4 id="有参数的GET方法"><a href="#有参数的GET方法" class="headerlink" title="有参数的GET方法"></a>有参数的GET方法</h4><p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20231224091446145.png" alt="image-20231224091446145"></p><h4 id="POST方法测试"><a href="#POST方法测试" class="headerlink" title="POST方法测试"></a>POST方法测试</h4><p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20231224091531412.png" alt="image-20231224091531412"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Yakit-Windows安装使用&quot;&gt;&lt;a href=&quot;#Yakit-Windows安装使用&quot; class=&quot;headerlink&quot; title=&quot;Yakit-Windows安装使用&quot;&gt;&lt;/a&gt;Yakit-Windows安装使用&lt;/h1&gt;&lt;h4 id=&quot;下载地址及</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>SQL注入技术以及Sqlmap的基本使用</title>
