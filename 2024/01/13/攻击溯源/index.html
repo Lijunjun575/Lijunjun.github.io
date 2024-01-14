@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Wireshark流量溯源 | 悟往之不谏，知来者可追</title><meta name="author" content="李书骏"><meta name="copyright" content="李书骏"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Wireshark流量溯源 蚁剑的数据分析  找到攻击的ip地址， 源地址和目的地址都是114的http的包 语法：(ip.src_host&#x3D;&#x3D;192.168.2.114 or ip.dst_host&#x3D;&#x3D;192.168.2.114)and http 找到攻击的包-&gt;追踪流-&gt;http Stream  将请求包的数据复制下来  用解码工具将这段数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Wireshark流量溯源">
+<meta property="og:url" content="http://example.com/2024/01/13/%E6%94%BB%E5%87%BB%E6%BA%AF%E6%BA%90/index.html">
+<meta property="og:site_name" content="悟往之不谏，知来者可追">
+<meta property="og:description" content="Wireshark流量溯源 蚁剑的数据分析  找到攻击的ip地址， 源地址和目的地址都是114的http的包 语法：(ip.src_host&#x3D;&#x3D;192.168.2.114 or ip.dst_host&#x3D;&#x3D;192.168.2.114)and http 找到攻击的包-&gt;追踪流-&gt;http Stream  将请求包的数据复制下来  用解码工具将这段数据">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/123.png">
+<meta property="article:published_time" content="2024-01-13T15:36:53.671Z">
+<meta property="article:modified_time" content="2024-01-14T02:00:36.030Z">
+<meta property="article:author" content="李书骏">
+<meta property="article:tag" content="1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/123.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/01/13/%E6%94%BB%E5%87%BB%E6%BA%AF%E6%BA%90/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Wireshark流量溯源',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-14 10:00:36'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="悟往之不谏，知来者可追" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/123.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/2233.png')"><nav id="nav"><span id="blog-info"><a href="/" title="悟往之不谏，知来者可追"><span class="site-name">悟往之不谏，知来者可追</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Wireshark流量溯源</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-01-13T15:36:53.671Z" title="Created 2024-01-13 23:36:53">2024-01-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-01-14T02:00:36.030Z" title="Updated 2024-01-14 10:00:36">2024-01-14</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Wireshark流量溯源"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Wireshark流量溯源"><a href="#Wireshark流量溯源" class="headerlink" title="Wireshark流量溯源"></a>Wireshark流量溯源</h1><p> 蚁剑的数据分析 </p>
+<p>找到攻击的ip地址，</p>
+<p>源地址和目的地址都是114的http的包</p>
+<p>语法：(ip.src_host&#x3D;&#x3D;192.168.2.114 or ip.dst_host&#x3D;&#x3D;192.168.2.114)and http</p>
+<p>找到攻击的包-&gt;追踪流-&gt;http Stream</p>
+<p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20240113233227435.png" alt="image-20240113233227435"></p>
+<p>将请求包的数据复制下来</p>
+<p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20240113233248356.png" alt="image-20240113233248356"></p>
+<p>用解码工具将这段数据进行解码</p>
+<p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20240113233308372.png" alt="image-20240113233308372"></p>
+<p>分析请求包，找到解码规则<img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/1704971588493-96b6f280-ce72-4f90-8083-e89aa29a93b4.png" alt="img"></p>
+<p>找到最后一串字符串，进行base64解码</p>
+<p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20240113233402807.png" alt="image-20240113233402807"></p>
+<p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20240113233412535.png" alt="image-20240113233412535"></p>
+<p>例如此段解码出来则可说明访问了**&#x2F;www**目录。</p>
+<p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20240113233512451.png" alt="image-20240113233512451"></p>
+<p>在如此段则是解码了sqlmap中布尔盲注发送的请求包</p>
+<p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20240113233635301.png" alt="image-20240113233635301"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">李书骏</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2024/01/13/%E6%94%BB%E5%87%BB%E6%BA%AF%E6%BA%90/">http://example.com/2024/01/13/%E6%94%BB%E5%87%BB%E6%BA%AF%E6%BA%90/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/1/">1</a></div><div class="post_share"><div class="social-share" data-image="/img/123.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/13/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" title="文件上传漏洞"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">文件上传漏洞</div></div></a></div><div class="next-post pull-right"><a href="/2024/01/13/mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E6%9D%83/" title="支付逻辑漏洞"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">支付逻辑漏洞</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/12/01/11.27%EF%BC%88%E6%B3%A8%E5%86%8Ctg%EF%BC%8C%E6%B0%B8%E6%81%92%E4%B9%8B%E9%BB%91%EF%BC%89/" title="11.27（python环境配置，永恒之黑）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-01</div><div class="title">11.27（python环境配置，永恒之黑）</div></div></a></div><div><a href="/2023/12/01/11.28%EF%BC%88%E9%92%93%E9%B1%BC%E7%BD%91%E7%AB%99%E3%80%81%E5%A4%A7%E7%81%B0%E7%8B%BC%E8%BF%9C%E7%A8%8B%EF%BC%89/" title="11.28（钓鱼网站、大灰狼远程）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-01</div><div class="title">11.28（钓鱼网站、大灰狼远程）</div></div></a></div><div><a href="/2023/12/01/11.29%EF%BC%88Quasar%E8%BF%9C%E7%A8%8B%E8%BD%AF%E4%BB%B6%E3%80%81PHPstudy%E3%80%81%E9%92%93%E9%B1%BC%E7%BD%91%E7%AB%99%E7%9A%84%E5%88%B6%E4%BD%9C%EF%BC%89/" title="11.29（Quasar远程软件、PHPstudy、钓鱼网站的制作）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-01</div><div class="title">11.29（Quasar远程软件、PHPstudy、钓鱼网站的制作）</div></div></a></div><div><a href="/2023/11/30/11-30(%E7%94%B5%E8%84%91%E7%A9%BA%E9%97%B4%E5%9B%9E%E6%94%B6%E3%80%81%E5%88%A9%E7%94%A8github%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2%EF%BC%89/" title="11-30(电脑空间回收、利用github搭建hexo博客）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-30</div><div class="title">11-30(电脑空间回收、利用github搭建hexo博客）</div></div></a></div><div><a href="/2023/12/02/12.1(OS%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8)/" title="12.1(linux的基本使用)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-02</div><div class="title">12.1(linux的基本使用)</div></div></a></div><div><a href="/2023/12/06/12.6(HTML5%E5%9F%BA%E7%A1%80%E4%BB%A5%E5%8F%8A%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%EF%BC%89/" title="12.6(HTML5基础以及简单使用）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-06</div><div class="title">12.6(HTML5基础以及简单使用）</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/123.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">李书骏</div><div class="author-info__description">今日事，今日毕</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Wireshark%E6%B5%81%E9%87%8F%E6%BA%AF%E6%BA%90"><span class="toc-number">1.</span> <span class="toc-text">Wireshark流量溯源</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/14/Hackademic%20RTB1%E9%9D%B6%E6%9C%BA/" title="Hackademic：RTB1靶机">Hackademic：RTB1靶机</a><time datetime="2024-01-14T01:39:22.904Z" title="Created 2024-01-14 09:39:22">2024-01-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/13/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" title="文件上传漏洞">文件上传漏洞</a><time datetime="2024-01-13T15:39:24.018Z" title="Created 2024-01-13 23:39:24">2024-01-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/13/%E6%94%BB%E5%87%BB%E6%BA%AF%E6%BA%90/" title="Wireshark流量溯源">Wireshark流量溯源</a><time datetime="2024-01-13T15:36:53.671Z" title="Created 2024-01-13 23:36:53">2024-01-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/13/mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E6%9D%83/" title="支付逻辑漏洞">支付逻辑漏洞</a><time datetime="2024-01-13T15:31:19.407Z" title="Created 2024-01-13 23:31:19">2024-01-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/07/%E6%94%AF%E4%BB%98%E6%BC%8F%E6%B4%9E%E7%AE%80%E4%BB%8B/" title="支付逻辑漏洞">支付逻辑漏洞</a><time datetime="2024-01-07T13:22:27.556Z" title="Created 2024-01-07 21:22:27">2024-01-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 李书骏</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

